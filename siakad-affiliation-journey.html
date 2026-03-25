@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Journey Map — Konfigurasi Afiliasi SIAKAD</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #faf8f3;
+    --cream: #f0ece0;
+    --gold: #c9a94a;
+    --gold-light: #e8d48a;
+    --gold-pale: #f5edcc;
+    --suteki: #1a3a5c;
+    --suteki-mid: #2d6090;
+    --suteki-light: #d6e8f5;
+    --campus: #2d5a27;
+    --campus-light: #dff0db;
+    --warning: #b34a00;
+    --warning-light: #fde8d5;
+    --divider: #d9d3c2;
+    --shadow: rgba(15,14,12,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--suteki);
+    color: #fff;
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.03) 18px,
+      rgba(255,255,255,0.03) 19px
+    );
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 32px;
+    background: var(--paper);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 900;
+    line-height: 1.15;
+    max-width: 640px;
+  }
+  header h1 span { color: var(--gold-light); }
+  .header-sub {
+    margin-top: 14px;
+    font-size: 14px;
+    opacity: 0.75;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* ─── ACTOR LEGEND ─── */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 28px 40px 0;
+    align-items: center;
+  }
+  .legend-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+    margin-right: 8px;
+  }
+  .actor-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 6px 8px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .actor-badge .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .actor-suteki { background: var(--suteki-light); color: var(--suteki); }
+  .actor-suteki .dot { background: var(--suteki); }
+  .actor-system { background: #e8e4f8; color: #3b2d80; }
+  .actor-system .dot { background: #5b47cc; }
+  .actor-campus { background: var(--campus-light); color: var(--campus); }
+  .actor-campus .dot { background: var(--campus); }
+
+  /* ─── MAIN CANVAS ─── */
+  .canvas {
+    padding: 32px 40px 60px;
+  }
+
+  /* ─── PHASE DIVIDER ─── */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 36px 0 8px;
+  }
+  .phase-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .phase-suteki { background: var(--suteki-light); color: var(--suteki); }
+  .phase-system { background: #e8e4f8; color: #3b2d80; }
+  .phase-campus { background: var(--campus-light); color: var(--campus); }
+  .phase-line { flex: 1; height: 1px; background: var(--divider); }
+  .phase-title {
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+  }
+
+  /* ─── STEP ROW ─── */
+  .steps-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0 20px;
+    position: relative;
+    animation: fadeUp 0.4s ease both;
+  }
+  .step:nth-child(1) { animation-delay: 0.05s; }
+  .step:nth-child(2) { animation-delay: 0.1s; }
+  .step:nth-child(3) { animation-delay: 0.15s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Number + connector line */
+  .step-spine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 18px;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num.suteki { background: var(--suteki); color: #fff; }
+  .step-num.system { background: #5b47cc; color: #fff; }
+  .step-num.campus { background: var(--campus); color: #fff; }
+
+  .connector {
+    flex: 1;
+    width: 2px;
+    background: var(--divider);
+    margin: 4px 0;
+    min-height: 20px;
+  }
+  .step:last-child .connector { display: none; }
+
+  /* Card */
+  .step-card {
+    margin: 12px 0 0;
+    border-radius: 12px;
+    padding: 18px 22px 20px;
+    border: 1px solid var(--divider);
+    background: #fff;
+    box-shadow: 0 2px 8px var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-card:hover {
+    box-shadow: 0 4px 20px rgba(15,14,12,0.13);
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    border-radius: 12px 0 0 12px;
+  }
+  .step-card.suteki::before { background: var(--suteki); }
+  .step-card.system::before { background: #5b47cc; }
+  .step-card.campus::before { background: var(--campus); }
+
+  .step-actor-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .tag-suteki { color: var(--suteki); }
+  .tag-system { color: #5b47cc; }
+  .tag-campus { color: var(--campus); }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .step-desc {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #444;
+  }
+
+  /* Detail chips / sub-items */
+  .detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .chip {
+    font-size: 12px;
+    padding: 4px 11px;
+    border-radius: 6px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .chip-gold { background: var(--gold-pale); color: #7a5c00; border: 1px solid var(--gold-light); }
+  .chip-blue { background: var(--suteki-light); color: var(--suteki); border: 1px solid #b3d4ee; }
+  .chip-purple { background: #ede9fc; color: #3b2d80; border: 1px solid #c7bcf5; }
+  .chip-green { background: var(--campus-light); color: #1e4019; border: 1px solid #aad4a5; }
+
+  /* Alert box inside card */
+  .alert-box {
+    background: var(--warning-light);
+    border: 1px solid #f0b88c;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--warning);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.55;
+  }
+  .alert-box svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* Validation box */
+  .valid-box {
+    background: #f0faf0;
+    border: 1px solid #a8d8a5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: #1b5e1f;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.55;
+  }
+
+  /* Sync arrow visual */
+  .sync-visual {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .sync-box {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .sync-siakad { background: var(--suteki-light); color: var(--suteki); border: 1px solid #b3d4ee; }
+  .sync-pmb { background: var(--campus-light); color: var(--campus); border: 1px solid #aad4a5; }
+  .sync-arrow {
+    font-size: 18px;
+    color: var(--gold);
+  }
+  .sync-label {
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* ─── NOTE FOOTER ─── */
+  .note-footer {
+    margin: 40px 40px 0;
+    border-radius: 12px;
+    background: var(--cream);
+    border: 1px solid var(--divider);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+  }
+  .note-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .note-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: var(--suteki);
+  }
+  .note-content p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #555;
+  }
+
+  /* ─── OUTCOME BANNER ─── */
+  .outcome-banner {
+    margin: 24px 40px 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--suteki) 0%, var(--suteki-mid) 100%);
+    padding: 24px 28px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .outcome-icon { font-size: 32px; flex-shrink: 0; }
+  .outcome-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .outcome-text p { font-size: 13px; opacity: 0.85; line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    header, .legend, .canvas, .note-footer, .outcome-banner { padding-left: 20px; padding-right: 20px; }
+    .step { grid-template-columns: 44px 1fr; }
+    .outcome-banner { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">User Journey Map · Internal Platform</div>
+  <h1>Konfigurasi <span>Afiliasi PMB</span><br>di SIAKAD</h1>
+  <p class="header-sub">Panduan visual langkah demi langkah — dari membuka halaman konfigurasi hingga fitur afiliasi siap digunakan oleh kampus.</p>
+</header>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-label">Aktor</span>
+  <div class="actor-badge actor-suteki"><span class="dot"></span> Admin Suteki</div>
+  <div class="actor-badge actor-system"><span class="dot"></span> Sistem SIAKAD</div>
+  <div class="actor-badge actor-campus"><span class="dot"></span> Admin Kampus (PMB)</div>
+</div>
+
+<!-- CANVAS -->
+<div class="canvas">
+
+  <!-- PHASE 1 -->
+  <div class="phase-header">
+    <span class="phase-tag phase-suteki">Fase 1</span>
+    <span class="phase-title">Akses & Persiapan</span>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="steps-row">
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num suteki">1</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card suteki">
+        <div class="step-actor-tag tag-suteki">Admin Suteki</div>
+        <div class="step-title">Buka Halaman Konfigurasi</div>
+        <p class="step-desc">Admin Suteki masuk ke panel internal SIAKAD dan membuka halaman khusus pengaturan fitur Afiliasi PMB. Halaman ini <strong>hanya bisa diakses oleh tim Suteki</strong> — bukan oleh pihak kampus.</p>
+        <div class="detail-row">
+          <span class="chip chip-blue">🔒 Akses terbatas: Suteki only</span>
+          <span class="chip chip-gold">📍 Panel Internal SIAKAD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num system">2</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card system">
+        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
+        <div class="step-title">Sistem Membaca Daftar Prodi</div>
+        <p class="step-desc">Begitu halaman terbuka, sistem <strong>langsung mengambil data</strong> dari database SIAKAD — tanpa perlu klik tombol apa pun. Semua program studi aktif yang tercatat di SIAKAD kampus tersebut langsung ditampilkan dalam tabel, satu baris per prodi.</p>
+        <div class="detail-row">
+          <span class="chip chip-purple">⚡ Otomatis saat halaman dibuka</span>
+          <span class="chip chip-purple">📋 Satu baris = satu prodi</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-header">
+    <span class="phase-tag phase-suteki">Fase 2</span>
+    <span class="phase-title">Cek & Isi Konfigurasi</span>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="steps-row">
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num system">3</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card system">
+        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
+        <div class="step-title">Cek Kelengkapan Konfigurasi</div>
+        <p class="step-desc">Sistem memeriksa apakah semua prodi sudah terisi. Jika ada yang belum, muncul <strong>banner peringatan</strong> yang menyebutkan jumlah prodi yang masih kosong.</p>
+        <div class="alert-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14.5 13H1.5L8 2Z" fill="#f5a623" stroke="#b34a00" stroke-width="1"/><path d="M8 6v3M8 11v.5" stroke="#b34a00" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span><strong>Contoh peringatan:</strong> "3 program studi belum dikonfigurasi. Harap lengkapi sebelum menyimpan."</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num suteki">4</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card suteki">
+        <div class="step-actor-tag tag-suteki">Admin Suteki</div>
+        <div class="step-title">Isi Konfigurasi per Prodi</div>
+        <p class="step-desc">Untuk setiap prodi, admin mengisi tiga informasi wajib:</p>
+        <div class="detail-row">
+          <span class="chip chip-gold">💰 Fee Bruto — komisi total untuk afiliator (Rp)</span>
+          <span class="chip chip-gold">⏱ Trigger Pencairan — kapan komisi dihitung</span>
+          <span class="chip chip-gold">✂️ Potongan Suteki — biaya platform (Rp flat atau %)</span>
+        </div>
+        <div class="detail-row" style="margin-top:10px;">
+          <span class="chip chip-blue">Opsi trigger: Daftar · Lulus Seleksi · Daftar Ulang</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-header">
+    <span class="phase-tag phase-suteki">Fase 3</span>
+    <span class="phase-title">Validasi & Simpan</span>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="steps-row">
+
+    <!-- Step 5 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num system">5</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card system">
+        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
+        <div class="step-title">Validasi Input</div>
+        <p class="step-desc">Saat admin mencoba menyimpan, sistem memvalidasi setiap field. Jika ada yang tidak valid, <strong>pesan error muncul langsung di bawah field yang bermasalah</strong>. Admin harus memperbaiki dulu sebelum bisa lanjut.</p>
+        <div class="alert-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#b34a00" stroke-width="1.2"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#b34a00" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <span><strong>Contoh error:</strong> "Potongan Suteki tidak boleh melebihi fee bruto" · "Trigger belum dipilih"</span>
+        </div>
+        <div class="valid-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#1b5e1f" stroke-width="1.2"/><path d="M5 8.5l2 2 4-4" stroke="#1b5e1f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Jika semua valid, sistem mengizinkan proses penyimpanan dilanjutkan.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num suteki">6</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card suteki">
+        <div class="step-actor-tag tag-suteki">Admin Suteki</div>
+        <div class="step-title">Simpan Konfigurasi</div>
+        <p class="step-desc">Setelah semua terisi dan valid, admin klik <strong>Simpan</strong>. Konfigurasi untuk setiap prodi — fee bruto, trigger pencairan, dan potongan Suteki — tersimpan ke database SIAKAD.</p>
+        <div class="detail-row">
+          <span class="chip chip-blue">💾 Tersimpan per prodi di database SIAKAD</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-header">
+    <span class="phase-tag phase-system">Fase 4</span>
+    <span class="phase-title">Sinkronisasi Otomatis</span>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="steps-row">
+
+    <!-- Step 7 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num system">7</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card system">
+        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
+        <div class="step-title">Sinkronisasi ke Portal PMB</div>
+        <p class="step-desc">Konfigurasi yang sudah tersimpan <strong>langsung terbaca oleh portal PMB kampus</strong> — tidak perlu upload atau import manual. Prodi baru otomatis muncul; prodi yang dinonaktifkan di SIAKAD otomatis tersembunyi.</p>
+        <div class="sync-visual">
+          <div class="sync-box sync-siakad">SIAKAD<br><small>Konfigurasi tersimpan</small></div>
+          <span class="sync-arrow">→</span>
+          <div class="sync-box sync-pmb">Portal PMB<br><small>Afiliasi → Pengaturan Program</small></div>
+          <span class="sync-label">real-time, otomatis</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase-header">
+    <span class="phase-tag phase-campus">Fase 5</span>
+    <span class="phase-title">Siap Digunakan Kampus</span>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="steps-row">
+
+    <!-- Step 8 -->
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num campus">8</div>
+      </div>
+      <div class="step-card campus">
+        <div class="step-actor-tag tag-campus">Admin Kampus (PMB)</div>
+        <div class="step-title">Fitur Afiliasi Siap Dikelola</div>
+        <p class="step-desc">Admin PMB kampus sudah bisa membuka menu <strong>Afiliasi → Pengaturan Program</strong> dan mengelola program afiliasi sesuai konfigurasi yang sudah disiapkan Suteki. Sistem PMB juga sudah bisa melakukan pengecekan komisi afiliasi secara otomatis berdasarkan prodi dan trigger yang berlaku.</p>
+        <div class="detail-row">
+          <span class="chip chip-green">✅ Prodi aktif tersedia di daftar afiliasi</span>
+          <span class="chip chip-green">🔍 Lookup komisi berjalan otomatis</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- OUTCOME BANNER -->
+<div class="outcome-banner">
+  <div class="outcome-icon">🎯</div>
+  <div class="outcome-text">
+    <h3>Hasil Akhir</h3>
+    <p>Setelah proses ini selesai, kampus dapat langsung menggunakan fitur afiliasi PMB. Setiap afiliator yang mendaftarkan calon mahasiswa akan mendapatkan komisi sesuai aturan yang telah dikonfigurasi — dihitung otomatis oleh sistem tanpa perlu input manual dari kampus.</p>
+  </div>
+</div>
+
+<!-- NOTE -->
+<div class="note-footer">
+  <div class="note-icon">📌</div>
+  <div class="note-content">
+    <h3>Catatan untuk Pihak Kampus</h3>
+    <p>Seluruh proses konfigurasi di atas dilakukan sepenuhnya oleh tim Suteki. Kampus tidak perlu melakukan apa pun selama proses ini berlangsung. Satu hal yang perlu dipastikan kampus: <strong>data program studi di SIAKAD sudah aktif dan benar</strong> sebelum proses ini dijalankan — karena sistem hanya membaca data prodi yang berstatus aktif.</p>
+  </div>
+</div>
+
+<div style="height:40px;"></div>
+
+</body>
+</html>
