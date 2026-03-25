@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Journey Map — Konfigurasi Afiliasi SIAKAD</title>
+<title>User Journey Map - Konfigurasi Afiliasi SIAKAD</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -391,9 +391,9 @@
 <body>
 
 <header>
-  <div class="header-eyebrow">User Journey Map · Internal Platform</div>
-  <h1>Konfigurasi <span>Afiliasi PMB</span><br>di SIAKAD</h1>
-  <p class="header-sub">Panduan visual langkah demi langkah — dari membuka halaman konfigurasi hingga fitur afiliasi siap digunakan oleh kampus.</p>
+  <div class="header-eyebrow">User Journey Map · PMB Affiliate</div>
+  <h1>Konfigurasi <span>Afiliasi PMB</span><br>di SIAKAD 4.0</h1>
+  <p class="header-sub">Gambaran rancangan flow langkah demi langkah konfigurasi hingga fitur afiliasi siap digunakan oleh kampus.</p>
 </header>
 
 <!-- LEGEND -->
@@ -425,9 +425,9 @@
       <div class="step-card suteki">
         <div class="step-actor-tag tag-suteki">Admin Suteki</div>
         <div class="step-title">Buka Halaman Konfigurasi</div>
-        <p class="step-desc">Admin Suteki masuk ke panel internal SIAKAD dan membuka halaman khusus pengaturan fitur Afiliasi PMB. Halaman ini <strong>hanya bisa diakses oleh tim Suteki</strong> — bukan oleh pihak kampus.</p>
+        <p class="step-desc">Admin Suteki masuk ke panel internal SIAKAD dan membuka halaman khusus pengaturan fitur Afiliasi PMB. Halaman ini <strong>hanya bisa diakses oleh tim Suteki</strong> (bukan oleh pihak kampus).</p>
         <div class="detail-row">
-          <span class="chip chip-blue">🔒 Akses terbatas: Suteki only</span>
+          <span class="chip chip-blue">🔒 Akses terbatas oleh Admin Suteki</span>
           <span class="chip chip-gold">📍 Panel Internal SIAKAD</span>
         </div>
       </div>
@@ -442,10 +442,10 @@
       <div class="step-card system">
         <div class="step-actor-tag tag-system">Sistem Otomatis</div>
         <div class="step-title">Sistem Membaca Daftar Prodi</div>
-        <p class="step-desc">Begitu halaman terbuka, sistem <strong>langsung mengambil data</strong> dari database SIAKAD — tanpa perlu klik tombol apa pun. Semua program studi aktif yang tercatat di SIAKAD kampus tersebut langsung ditampilkan dalam tabel, satu baris per prodi.</p>
+        <p class="step-desc">Begitu halaman terbuka, sistem <strong>langsung mengambil data</strong> dari database SIAKAD, tanpa perlu klik tombol apa pun. Semua program studi aktif yang tercatat di SIAKAD kampus tersebut langsung ditampilkan.</p>
         <div class="detail-row">
           <span class="chip chip-purple">⚡ Otomatis saat halaman dibuka</span>
-          <span class="chip chip-purple">📋 Satu baris = satu prodi</span>
+          <span class="chip chip-purple">📋 Semua prodi yang terdata di sistem ditampilkan</span>
         </div>
       </div>
     </div>
@@ -489,9 +489,9 @@
         <div class="step-title">Isi Konfigurasi per Prodi</div>
         <p class="step-desc">Untuk setiap prodi, admin mengisi tiga informasi wajib:</p>
         <div class="detail-row">
-          <span class="chip chip-gold">💰 Fee Bruto — komisi total untuk afiliator (Rp)</span>
-          <span class="chip chip-gold">⏱ Trigger Pencairan — kapan komisi dihitung</span>
-          <span class="chip chip-gold">✂️ Potongan Suteki — biaya platform (Rp flat atau %)</span>
+          <span class="chip chip-gold">💰 Fee Bruto: komisi total untuk afiliator (Rp)</span>
+          <span class="chip chip-gold">⏱ Trigger Pencairan: kondisi penentuan dihitungnya komisi</span>
+          <span class="chip chip-gold">✂️ Potongan Suteki (read only) : biaya platform (% sesuai dengan kesepakatan)</span>
         </div>
         <div class="detail-row" style="margin-top:10px;">
           <span class="chip chip-blue">Opsi trigger: Daftar · Lulus Seleksi · Daftar Ulang</span>
@@ -522,7 +522,7 @@
         <p class="step-desc">Saat admin mencoba menyimpan, sistem memvalidasi setiap field. Jika ada yang tidak valid, <strong>pesan error muncul langsung di bawah field yang bermasalah</strong>. Admin harus memperbaiki dulu sebelum bisa lanjut.</p>
         <div class="alert-box">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#b34a00" stroke-width="1.2"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#b34a00" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <span><strong>Contoh error:</strong> "Potongan Suteki tidak boleh melebihi fee bruto" · "Trigger belum dipilih"</span>
+          <span><strong>Contoh error:</strong> "Trigger belum dipilih"</span>
         </div>
         <div class="valid-box">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#1b5e1f" stroke-width="1.2"/><path d="M5 8.5l2 2 4-4" stroke="#1b5e1f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -540,7 +540,7 @@
       <div class="step-card suteki">
         <div class="step-actor-tag tag-suteki">Admin Suteki</div>
         <div class="step-title">Simpan Konfigurasi</div>
-        <p class="step-desc">Setelah semua terisi dan valid, admin klik <strong>Simpan</strong>. Konfigurasi untuk setiap prodi — fee bruto, trigger pencairan, dan potongan Suteki — tersimpan ke database SIAKAD.</p>
+        <p class="step-desc">Setelah semua terisi dan valid, admin klik <strong>Simpan</strong>. Konfigurasi untuk setiap prodi: fee bruto, trigger pencairan, dan potongan Suteki, tersimpan ke database SIAKAD.</p>
         <div class="detail-row">
           <span class="chip chip-blue">💾 Tersimpan per prodi di database SIAKAD</span>
         </div>
@@ -567,7 +567,7 @@
       <div class="step-card system">
         <div class="step-actor-tag tag-system">Sistem Otomatis</div>
         <div class="step-title">Sinkronisasi ke Portal PMB</div>
-        <p class="step-desc">Konfigurasi yang sudah tersimpan <strong>langsung terbaca oleh portal PMB kampus</strong> — tidak perlu upload atau import manual. Prodi baru otomatis muncul; prodi yang dinonaktifkan di SIAKAD otomatis tersembunyi.</p>
+        <p class="step-desc">Konfigurasi yang sudah tersimpan <strong>langsung terbaca oleh portal PMB kampus</strong>. Tidak perlu upload atau import manual. Prodi baru otomatis muncul; prodi yang dinonaktifkan di SIAKAD otomatis tersembunyi.</p>
         <div class="sync-visual">
           <div class="sync-box sync-siakad">SIAKAD<br><small>Konfigurasi tersimpan</small></div>
           <span class="sync-arrow">→</span>
