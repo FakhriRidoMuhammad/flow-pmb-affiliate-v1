@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Journey Map - Konfigurasi Afiliasi SIAKAD</title>
+<title>User Journey Map — SIAKAD Afiliasi</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -18,43 +18,89 @@
     --suteki-light: #d6e8f5;
     --campus: #2d5a27;
     --campus-light: #dff0db;
+    --affiliator: #064e3b;
+    --affiliator-light: #d1fae5;
+    --rekening: #4c1d95;
+    --rekening-light: #ede9fe;
     --warning: #b34a00;
     --warning-light: #fde8d5;
     --divider: #d9d3c2;
     --shadow: rgba(15,14,12,0.08);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
+  /* NAV */
+  .top-nav {
+    background: var(--ink);
+    display: flex;
+    align-items: stretch;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
+  .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    padding: 16px 20px 16px 0;
+    margin-right: 16px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .nav-tabs { display: flex; }
+  .nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 22px;
+    height: 52px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .nav-tab:hover { color: rgba(255,255,255,0.8); }
+  .nav-tab.active { color: #fff; border-bottom-color: var(--gold); }
+  .tab-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  .nav-tab.active .tab-num { background: var(--gold); color: #000; }
 
-  /* ─── HEADER ─── */
-  header {
-    background: var(--suteki);
-    color: #fff;
-    padding: 48px 40px 40px;
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HEADER */
+  .page-header {
+    padding: 44px 40px 36px;
     position: relative;
     overflow: hidden;
   }
-  header::before {
+  .ph-blue { background: var(--suteki); color: #fff; }
+  .ph-dark { background: #111827; color: #fff; }
+  .page-header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 18px,
-      rgba(255,255,255,0.03) 18px,
-      rgba(255,255,255,0.03) 19px
-    );
+    background: repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(255,255,255,0.025) 18px, rgba(255,255,255,0.025) 19px);
     pointer-events: none;
   }
-  header::after {
+  .page-header::after {
     content: '';
     position: absolute;
     bottom: -1px; left: 0; right: 0;
@@ -70,71 +116,37 @@
     color: var(--gold-light);
     margin-bottom: 12px;
   }
-  header h1 {
+  .page-header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 4vw, 42px);
+    font-size: clamp(24px, 4vw, 40px);
     font-weight: 900;
     line-height: 1.15;
     max-width: 640px;
   }
-  header h1 span { color: var(--gold-light); }
-  .header-sub {
-    margin-top: 14px;
-    font-size: 14px;
-    opacity: 0.75;
-    max-width: 500px;
-    line-height: 1.6;
-  }
+  .page-header h1 span { color: var(--gold-light); }
+  .header-sub { margin-top: 14px; font-size: 14px; opacity: 0.72; max-width: 520px; line-height: 1.6; }
 
-  /* ─── ACTOR LEGEND ─── */
-  .legend {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    padding: 28px 40px 0;
-    align-items: center;
-  }
-  .legend-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #888;
-    margin-right: 8px;
-  }
-  .actor-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px 6px 8px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .actor-badge .dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .actor-suteki { background: var(--suteki-light); color: var(--suteki); }
-  .actor-suteki .dot { background: var(--suteki); }
-  .actor-system { background: #e8e4f8; color: #3b2d80; }
-  .actor-system .dot { background: #5b47cc; }
-  .actor-campus { background: var(--campus-light); color: var(--campus); }
-  .actor-campus .dot { background: var(--campus); }
+  /* LEGEND */
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; padding: 24px 40px 0; align-items: center; }
+  .legend-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-right: 4px; }
+  .actor-badge { display: flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 500; }
+  .actor-badge .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .ab-suteki { background: var(--suteki-light); color: var(--suteki); }
+  .ab-suteki .dot { background: var(--suteki); }
+  .ab-system { background: #e8e4f8; color: #3b2d80; }
+  .ab-system .dot { background: #5b47cc; }
+  .ab-campus { background: var(--campus-light); color: var(--campus); }
+  .ab-campus .dot { background: var(--campus); }
+  .ab-affiliator { background: var(--affiliator-light); color: var(--affiliator); }
+  .ab-affiliator .dot { background: #059669; }
+  .ab-rekening { background: var(--rekening-light); color: var(--rekening); }
+  .ab-rekening .dot { background: #7c3aed; }
 
-  /* ─── MAIN CANVAS ─── */
-  .canvas {
-    padding: 32px 40px 60px;
-  }
+  /* CANVAS */
+  .canvas { padding: 28px 40px 52px; }
 
-  /* ─── PHASE DIVIDER ─── */
-  .phase-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 36px 0 8px;
-  }
+  /* PHASE HEADER */
+  .phase-header { display: flex; align-items: center; gap: 14px; margin: 32px 0 6px; }
   .phase-tag {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -142,76 +154,44 @@
     text-transform: uppercase;
     padding: 4px 12px;
     border-radius: 4px;
-    font-weight: 500;
+    font-weight: 600;
+    white-space: nowrap;
   }
-  .phase-suteki { background: var(--suteki-light); color: var(--suteki); }
-  .phase-system { background: #e8e4f8; color: #3b2d80; }
-  .phase-campus { background: var(--campus-light); color: var(--campus); }
+  .pt-suteki { background: var(--suteki-light); color: var(--suteki); }
+  .pt-campus { background: var(--campus-light); color: var(--campus); }
+  .pt-system { background: #e8e4f8; color: #3b2d80; }
+  .pt-rekening { background: var(--rekening-light); color: var(--rekening); }
+  .pt-affiliator { background: var(--affiliator-light); color: var(--affiliator); }
+  .pt-done { background: #ccfbf1; color: #064e3b; }
   .phase-line { flex: 1; height: 1px; background: var(--divider); }
-  .phase-title {
-    font-size: 13px;
-    color: #888;
-    font-weight: 400;
-  }
+  .phase-title { font-size: 13px; color: #999; font-weight: 400; white-space: nowrap; }
 
-  /* ─── STEP ROW ─── */
-  .steps-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .step {
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: 0 20px;
-    position: relative;
-    animation: fadeUp 0.4s ease both;
-  }
-  .step:nth-child(1) { animation-delay: 0.05s; }
-  .step:nth-child(2) { animation-delay: 0.1s; }
-  .step:nth-child(3) { animation-delay: 0.15s; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Number + connector line */
-  .step-spine {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 18px;
-  }
+  /* STEP */
+  .steps-row { display: flex; flex-direction: column; }
+  .step { display: grid; grid-template-columns: 54px 1fr; gap: 0 16px; animation: fadeUp 0.35s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .step-spine { display: flex; flex-direction: column; align-items: center; padding-top: 15px; }
   .step-num {
-    width: 36px; height: 36px;
-    border-radius: 50%;
+    width: 34px; height: 34px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
+    font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 600;
+    flex-shrink: 0; z-index: 1;
   }
-  .step-num.suteki { background: var(--suteki); color: #fff; }
-  .step-num.system { background: #5b47cc; color: #fff; }
-  .step-num.campus { background: var(--campus); color: #fff; }
-
-  .connector {
-    flex: 1;
-    width: 2px;
-    background: var(--divider);
-    margin: 4px 0;
-    min-height: 20px;
-  }
+  .sn-suteki { background: var(--suteki); color: #fff; }
+  .sn-campus { background: var(--campus); color: #fff; }
+  .sn-system { background: #5b47cc; color: #fff; }
+  .sn-affiliator { background: #059669; color: #fff; }
+  .sn-rekening { background: #7c3aed; color: #fff; }
+  .sn-decision { background: #dc2626; color: #fff; }
+  .sn-done { background: #0d9488; color: #fff; }
+  .connector { flex: 1; width: 2px; background: var(--divider); margin: 4px 0; min-height: 16px; }
   .step:last-child .connector { display: none; }
 
-  /* Card */
+  /* CARD */
   .step-card {
-    margin: 12px 0 0;
+    margin: 10px 0 0;
     border-radius: 12px;
-    padding: 18px 22px 20px;
+    padding: 15px 20px 17px;
     border: 1px solid var(--divider);
     background: #fff;
     box-shadow: 0 2px 8px var(--shadow);
@@ -219,416 +199,611 @@
     overflow: hidden;
     transition: box-shadow 0.2s;
   }
-  .step-card:hover {
-    box-shadow: 0 4px 20px rgba(15,14,12,0.13);
-  }
+  .step-card:hover { box-shadow: 0 4px 18px rgba(15,14,12,0.11); }
   .step-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px; height: 100%;
-    border-radius: 12px 0 0 12px;
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; border-radius: 12px 0 0 12px;
   }
-  .step-card.suteki::before { background: var(--suteki); }
-  .step-card.system::before { background: #5b47cc; }
-  .step-card.campus::before { background: var(--campus); }
+  .sc-suteki::before { background: var(--suteki); }
+  .sc-campus::before { background: var(--campus); }
+  .sc-system::before { background: #5b47cc; }
+  .sc-affiliator::before { background: #059669; }
+  .sc-rekening::before { background: #7c3aed; }
+  .sc-done::before { background: #0d9488; }
 
   .step-actor-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 6px;
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 5px;
   }
-  .tag-suteki { color: var(--suteki); }
-  .tag-system { color: #5b47cc; }
-  .tag-campus { color: var(--campus); }
+  .at-suteki { color: var(--suteki); }
+  .at-campus { color: var(--campus); }
+  .at-system { color: #5b47cc; }
+  .at-affiliator { color: #059669; }
+  .at-rekening { color: #7c3aed; }
+  .at-done { color: #0d9488; }
 
-  .step-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 8px;
-  }
-  .step-desc {
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: #444;
-  }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.25; margin-bottom: 7px; }
+  .step-desc { font-size: 13.5px; line-height: 1.65; color: #444; }
 
-  /* Detail chips / sub-items */
-  .detail-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .chip {
-    font-size: 12px;
-    padding: 4px 11px;
-    border-radius: 6px;
-    font-weight: 500;
-    line-height: 1.4;
-  }
-  .chip-gold { background: var(--gold-pale); color: #7a5c00; border: 1px solid var(--gold-light); }
-  .chip-blue { background: var(--suteki-light); color: var(--suteki); border: 1px solid #b3d4ee; }
-  .chip-purple { background: #ede9fc; color: #3b2d80; border: 1px solid #c7bcf5; }
-  .chip-green { background: var(--campus-light); color: #1e4019; border: 1px solid #aad4a5; }
+  /* CHIPS */
+  .detail-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+  .chip { font-size: 12px; padding: 4px 11px; border-radius: 6px; font-weight: 500; line-height: 1.4; }
+  .ch-gold { background: var(--gold-pale); color: #7a5c00; border: 1px solid var(--gold-light); }
+  .ch-blue { background: var(--suteki-light); color: var(--suteki); border: 1px solid #b3d4ee; }
+  .ch-purple { background: #ede9fc; color: #3b2d80; border: 1px solid #c7bcf5; }
+  .ch-green { background: var(--campus-light); color: #1e4019; border: 1px solid #aad4a5; }
+  .ch-teal { background: #ccfbf1; color: #064e3b; border: 1px solid #6ee7d0; }
+  .ch-aff { background: var(--affiliator-light); color: var(--affiliator); border: 1px solid #6ee7b7; }
+  .ch-rek { background: var(--rekening-light); color: var(--rekening); border: 1px solid #c4b5fd; }
 
-  /* Alert box inside card */
-  .alert-box {
-    background: var(--warning-light);
-    border: 1px solid #f0b88c;
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin-top: 12px;
-    font-size: 12.5px;
-    color: var(--warning);
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    line-height: 1.55;
-  }
-  .alert-box svg { flex-shrink: 0; margin-top: 1px; }
+  /* ALERT BOXES */
+  .alert-box { background: var(--warning-light); border: 1px solid #f0b88c; border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-size: 12.5px; color: var(--warning); display: flex; gap: 8px; align-items: flex-start; line-height: 1.55; }
+  .valid-box { background: #f0faf0; border: 1px solid #a8d8a5; border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-size: 12.5px; color: #1b5e1f; display: flex; gap: 8px; align-items: flex-start; line-height: 1.55; }
+  .dispute-box { background: #fff7ed; border: 1px solid #fdba74; border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-size: 12.5px; color: #7c2d12; display: flex; gap: 8px; align-items: flex-start; line-height: 1.55; }
 
-  /* Validation box */
-  .valid-box {
-    background: #f0faf0;
-    border: 1px solid #a8d8a5;
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin-top: 12px;
-    font-size: 12.5px;
-    color: #1b5e1f;
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    line-height: 1.55;
-  }
+  /* DECISION CARD */
+  .decision-card { margin: 10px 0 0; border-radius: 12px; padding: 15px 20px 17px; border: 2px solid #fca5a5; background: #fff5f5; position: relative; }
+  .decision-branches { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .branch { border-radius: 8px; padding: 10px 12px; font-size: 12.5px; line-height: 1.5; }
+  .branch-yes { background: #f0faf0; border: 1px solid #a8d8a5; color: #1b5e1f; }
+  .branch-no { background: #fff7ed; border: 1px solid #fdba74; color: #7c2d12; }
+  .branch-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; display: block; }
 
-  /* Sync arrow visual */
-  .sync-visual {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 14px;
-    flex-wrap: wrap;
-  }
-  .sync-box {
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-  }
-  .sync-siakad { background: var(--suteki-light); color: var(--suteki); border: 1px solid #b3d4ee; }
-  .sync-pmb { background: var(--campus-light); color: var(--campus); border: 1px solid #aad4a5; }
-  .sync-arrow {
-    font-size: 18px;
-    color: var(--gold);
-  }
-  .sync-label {
-    font-size: 11px;
-    color: #888;
-    font-style: italic;
-  }
+  /* CALC BOX */
+  .calc-box { background: #f8f7ff; border: 1px solid #c4b5fd; border-radius: 10px; padding: 14px 16px; margin-top: 13px; }
+  .calc-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #7c3aed; margin-bottom: 10px; font-weight: 600; }
+  .calc-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 4px 0; border-bottom: 1px dashed #e9e0ff; gap: 12px; }
+  .calc-row:last-child { border-bottom: none; }
+  .calc-row.total { font-weight: 700; color: #4c1d95; border-top: 2px solid #c4b5fd; margin-top: 4px; padding-top: 8px; border-bottom: none; }
+  .calc-label { color: #555; }
+  .calc-val { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 600; }
+  .cv-minus { color: #dc2626; }
+  .cv-plus { color: #059669; }
+  .cv-result { color: #4c1d95; }
 
-  /* ─── NOTE FOOTER ─── */
-  .note-footer {
-    margin: 40px 40px 0;
-    border-radius: 12px;
-    background: var(--cream);
-    border: 1px solid var(--divider);
-    padding: 20px 24px;
-    display: flex;
-    gap: 16px;
-  }
-  .note-icon {
-    font-size: 22px;
-    flex-shrink: 0;
-    line-height: 1.4;
-  }
-  .note-content h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    margin-bottom: 6px;
-    color: var(--suteki);
-  }
-  .note-content p {
-    font-size: 13px;
-    line-height: 1.65;
-    color: #555;
-  }
+  /* SYNC VISUAL */
+  .sync-visual { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .sync-box { padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: center; line-height: 1.4; }
+  .sb-suteki { background: var(--suteki-light); color: var(--suteki); border: 1px solid #b3d4ee; }
+  .sb-campus { background: var(--campus-light); color: var(--campus); border: 1px solid #aad4a5; }
+  .sb-rek { background: var(--rekening-light); color: var(--rekening); border: 1px solid #c4b5fd; }
+  .sb-aff { background: var(--affiliator-light); color: var(--affiliator); border: 1px solid #6ee7b7; }
+  .sb-pmb { background: var(--campus-light); color: var(--campus); border: 1px solid #aad4a5; }
+  .sync-arrow { font-size: 18px; color: var(--gold); font-weight: bold; }
+  .sync-label { font-size: 11px; color: #888; font-style: italic; }
 
-  /* ─── OUTCOME BANNER ─── */
-  .outcome-banner {
-    margin: 24px 40px 0;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--suteki) 0%, var(--suteki-mid) 100%);
-    padding: 24px 28px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .outcome-icon { font-size: 32px; flex-shrink: 0; }
-  .outcome-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
+  /* OUTCOME */
+  .outcome-banner { margin: 20px 40px 0; border-radius: 12px; padding: 22px 28px; color: #fff; display: flex; align-items: center; gap: 20px; }
+  .ob-blue { background: linear-gradient(135deg, var(--suteki) 0%, var(--suteki-mid) 100%); }
+  .ob-teal { background: linear-gradient(135deg, #0d9488 0%, #059669 100%); }
+  .outcome-icon { font-size: 30px; flex-shrink: 0; }
+  .outcome-text h3 { font-family: 'Playfair Display', serif; font-size: 17px; margin-bottom: 5px; }
   .outcome-text p { font-size: 13px; opacity: 0.85; line-height: 1.6; }
 
-  @media (max-width: 600px) {
-    header, .legend, .canvas, .note-footer, .outcome-banner { padding-left: 20px; padding-right: 20px; }
+  .note-footer { margin: 20px 40px 0; border-radius: 12px; background: var(--cream); border: 1px solid var(--divider); padding: 18px 22px; display: flex; gap: 14px; }
+  .note-icon { font-size: 20px; flex-shrink: 0; line-height: 1.5; }
+  .note-content h3 { font-family: 'Playfair Display', serif; font-size: 14px; margin-bottom: 5px; color: var(--suteki); }
+  .note-content p { font-size: 13px; line-height: 1.65; color: #555; }
+
+  @media (max-width: 640px) {
+    .top-nav { padding: 0 16px; }
+    .nav-brand { display: none; }
+    .nav-tab { padding: 0 12px; font-size: 12px; }
+    .page-header, .legend, .canvas, .note-footer, .outcome-banner { padding-left: 20px; padding-right: 20px; }
     .step { grid-template-columns: 44px 1fr; }
+    .decision-branches { grid-template-columns: 1fr; }
     .outcome-banner { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-eyebrow">User Journey Map · PMB Affiliate</div>
-  <h1>Konfigurasi <span>Afiliasi PMB</span><br>di SIAKAD 4.0</h1>
-  <p class="header-sub">Gambaran rancangan flow langkah demi langkah konfigurasi hingga fitur afiliasi siap digunakan oleh kampus.</p>
-</header>
+<nav class="top-nav">
+  <div class="nav-brand">SIAKAD · Afiliasi</div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showPage('config')" id="tab-config">
+      <span class="tab-num">01</span> Konfigurasi Afiliasi
+    </div>
+    <div class="nav-tab" onclick="showPage('distribusi')" id="tab-distribusi">
+      <span class="tab-num">02</span> Distribusi Komisi
+    </div>
+  </div>
+</nav>
 
-<!-- LEGEND -->
-<div class="legend">
-  <span class="legend-label">Aktor</span>
-  <div class="actor-badge actor-suteki"><span class="dot"></span> Admin Suteki</div>
-  <div class="actor-badge actor-system"><span class="dot"></span> Sistem SIAKAD</div>
-  <div class="actor-badge actor-campus"><span class="dot"></span> Admin Kampus (PMB)</div>
+
+<!-- ══ PAGE 1: KONFIGURASI ══ -->
+<div class="page active" id="page-config">
+
+  <div class="page-header ph-blue">
+    <div class="header-eyebrow">User Journey Map · Halaman 1 / 2</div>
+    <h1>Konfigurasi <span>Afiliasi PMB</span><br>di SIAKAD</h1>
+    <p class="header-sub">Panduan visual langkah demi langkah — dari membuka halaman konfigurasi hingga fitur afiliasi siap digunakan oleh kampus.</p>
+  </div>
+
+  <div class="legend">
+    <span class="legend-label">Aktor</span>
+    <div class="actor-badge ab-suteki"><span class="dot"></span> Admin Suteki</div>
+    <div class="actor-badge ab-system"><span class="dot"></span> Sistem SIAKAD</div>
+    <div class="actor-badge ab-campus"><span class="dot"></span> Admin Kampus (PMB)</div>
+  </div>
+
+  <div class="canvas">
+
+    <div class="phase-header">
+      <span class="phase-tag pt-suteki">Fase 1</span>
+      <span class="phase-title">Akses &amp; Persiapan</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">1</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Admin Suteki</div>
+          <div class="step-title">Buka Halaman Konfigurasi</div>
+          <p class="step-desc">Admin Suteki masuk ke panel internal SIAKAD dan membuka halaman khusus pengaturan fitur Afiliasi PMB. Halaman ini <strong>hanya bisa diakses oleh tim Suteki</strong> — bukan oleh pihak kampus.</p>
+          <div class="detail-row">
+            <span class="chip ch-blue">🔒 Akses terbatas: Suteki only</span>
+            <span class="chip ch-gold">📍 Panel Internal SIAKAD</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-system">2</div><div class="connector"></div></div>
+        <div class="step-card sc-system">
+          <div class="step-actor-tag at-system">Sistem Otomatis</div>
+          <div class="step-title">Sistem Membaca Daftar Prodi</div>
+          <p class="step-desc">Begitu halaman terbuka, sistem <strong>langsung mengambil data</strong> dari database SIAKAD tanpa perlu klik tombol. Semua program studi aktif langsung muncul dalam tabel, satu baris per prodi.</p>
+          <div class="detail-row">
+            <span class="chip ch-purple">⚡ Otomatis saat halaman dibuka</span>
+            <span class="chip ch-purple">📋 Satu baris = satu prodi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-header">
+      <span class="phase-tag pt-suteki">Fase 2</span>
+      <span class="phase-title">Cek &amp; Isi Konfigurasi</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-system">3</div><div class="connector"></div></div>
+        <div class="step-card sc-system">
+          <div class="step-actor-tag at-system">Sistem Otomatis</div>
+          <div class="step-title">Cek Kelengkapan Konfigurasi</div>
+          <p class="step-desc">Sistem memeriksa apakah semua prodi sudah terisi. Jika ada yang belum, muncul <strong>banner peringatan</strong> yang menyebutkan jumlah prodi yang masih kosong.</p>
+          <div class="alert-box">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14.5 13H1.5L8 2Z" fill="#f5a623" stroke="#b34a00" stroke-width="1"/><path d="M8 6v3M8 11v.5" stroke="#b34a00" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span><strong>Contoh peringatan:</strong> "3 program studi belum dikonfigurasi. Harap lengkapi sebelum menyimpan."</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">4</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Admin Suteki</div>
+          <div class="step-title">Isi Konfigurasi per Prodi</div>
+          <p class="step-desc">Untuk setiap prodi, admin mengisi tiga informasi wajib:</p>
+          <div class="detail-row">
+            <span class="chip ch-gold">💰 Fee Bruto — komisi total untuk afiliator (Rp)</span>
+            <span class="chip ch-gold">⏱ Trigger Pencairan — kapan komisi dihitung</span>
+            <span class="chip ch-gold">✂️ Potongan Suteki — biaya platform (Rp flat atau %)</span>
+          </div>
+          <div class="detail-row" style="margin-top:8px;">
+            <span class="chip ch-blue">Opsi trigger: Daftar · Lulus Seleksi · Daftar Ulang</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-header">
+      <span class="phase-tag pt-suteki">Fase 3</span>
+      <span class="phase-title">Validasi &amp; Simpan</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-system">5</div><div class="connector"></div></div>
+        <div class="step-card sc-system">
+          <div class="step-actor-tag at-system">Sistem Otomatis</div>
+          <div class="step-title">Validasi Input</div>
+          <p class="step-desc">Saat admin mencoba menyimpan, sistem memvalidasi setiap field. Jika ada yang tidak valid, <strong>pesan error muncul langsung di bawah field yang bermasalah</strong>. Admin harus memperbaiki dulu sebelum bisa lanjut.</p>
+          <div class="alert-box">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#b34a00" stroke-width="1.2"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#b34a00" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <span><strong>Contoh error:</strong> "Potongan Suteki tidak boleh melebihi fee bruto" · "Trigger belum dipilih"</span>
+          </div>
+          <div class="valid-box">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#1b5e1f" stroke-width="1.2"/><path d="M5 8.5l2 2 4-4" stroke="#1b5e1f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Jika semua valid, sistem mengizinkan proses penyimpanan dilanjutkan.</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">6</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Admin Suteki</div>
+          <div class="step-title">Simpan Konfigurasi</div>
+          <p class="step-desc">Setelah semua terisi dan valid, admin klik <strong>Simpan</strong>. Konfigurasi untuk setiap prodi — fee bruto, trigger pencairan, dan potongan Suteki — tersimpan ke database SIAKAD.</p>
+          <div class="detail-row">
+            <span class="chip ch-blue">💾 Tersimpan per prodi di database SIAKAD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-header">
+      <span class="phase-tag pt-system">Fase 4</span>
+      <span class="phase-title">Sinkronisasi Otomatis</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-system">7</div><div class="connector"></div></div>
+        <div class="step-card sc-system">
+          <div class="step-actor-tag at-system">Sistem Otomatis</div>
+          <div class="step-title">Sinkronisasi ke Portal PMB</div>
+          <p class="step-desc">Konfigurasi yang sudah tersimpan <strong>langsung terbaca oleh portal PMB kampus</strong> — tidak perlu upload atau import manual. Prodi baru otomatis muncul; prodi yang dinonaktifkan di SIAKAD otomatis tersembunyi.</p>
+          <div class="sync-visual">
+            <div class="sync-box sb-suteki">SIAKAD<br><small>Konfigurasi tersimpan</small></div>
+            <span class="sync-arrow">→</span>
+            <div class="sync-box sb-pmb">Portal PMB<br><small>Afiliasi → Pengaturan Program</small></div>
+            <span class="sync-label">real-time, otomatis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-header">
+      <span class="phase-tag pt-campus">Fase 5</span>
+      <span class="phase-title">Siap Digunakan Kampus</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-spine"><div class="step-num" style="background:var(--campus);color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;">8</div></div>
+        <div class="step-card sc-campus">
+          <div class="step-actor-tag at-campus">Admin Kampus (PMB)</div>
+          <div class="step-title">Fitur Afiliasi Siap Dikelola</div>
+          <p class="step-desc">Admin PMB kampus sudah bisa membuka menu <strong>Afiliasi → Pengaturan Program</strong> dan mengelola program afiliasi. Sistem PMB juga bisa melakukan pengecekan komisi afiliasi secara otomatis berdasarkan prodi dan trigger yang berlaku.</p>
+          <div class="detail-row">
+            <span class="chip ch-green">✅ Prodi aktif tersedia di daftar afiliasi</span>
+            <span class="chip ch-green">🔍 Lookup komisi berjalan otomatis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="outcome-banner ob-blue">
+    <div class="outcome-icon">🎯</div>
+    <div class="outcome-text">
+      <h3>Hasil Akhir</h3>
+      <p>Kampus dapat langsung menggunakan fitur afiliasi PMB. Setiap afiliator yang mendaftarkan calon mahasiswa akan mendapatkan komisi sesuai aturan yang telah dikonfigurasi — dihitung otomatis oleh sistem.</p>
+    </div>
+  </div>
+  <div class="note-footer">
+    <div class="note-icon">📌</div>
+    <div class="note-content">
+      <h3>Catatan untuk Pihak Kampus</h3>
+      <p>Seluruh proses konfigurasi dilakukan sepenuhnya oleh tim Suteki. Kampus hanya perlu memastikan <strong>data program studi di SIAKAD sudah aktif dan benar</strong> sebelum proses ini dijalankan.</p>
+    </div>
+  </div>
+  <div style="height:48px;"></div>
 </div>
 
-<!-- CANVAS -->
-<div class="canvas">
 
-  <!-- PHASE 1 -->
-  <div class="phase-header">
-    <span class="phase-tag phase-suteki">Fase 1</span>
-    <span class="phase-title">Akses & Persiapan</span>
-    <div class="phase-line"></div>
+<!-- ══ PAGE 2: DISTRIBUSI KOMISI ══ -->
+<div class="page" id="page-distribusi">
+
+  <div class="page-header ph-dark">
+    <div class="header-eyebrow">User Journey Map · Halaman 2 / 2</div>
+    <h1>Distribusi <span>Komisi Afiliator</span></h1>
+    <p class="header-sub">Alur lengkap dari pembuatan rekapan komisi oleh Suteki hingga dana sampai di rekening masing-masing afiliator.</p>
   </div>
 
-  <div class="steps-row">
+  <div class="legend">
+    <span class="legend-label">Aktor</span>
+    <div class="actor-badge ab-suteki"><span class="dot"></span> Suteki</div>
+    <div class="actor-badge ab-campus"><span class="dot"></span> Kampus</div>
+    <div class="actor-badge ab-rekening"><span class="dot"></span> Rek. Penampung</div>
+    <div class="actor-badge ab-affiliator"><span class="dot"></span> Afiliator</div>
+  </div>
 
-    <!-- Step 1 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num suteki">1</div>
-        <div class="connector"></div>
+  <div class="canvas">
+
+    <!-- FASE A -->
+    <div class="phase-header">
+      <span class="phase-tag pt-suteki">Fase A</span>
+      <span class="phase-title">Persiapan &amp; Invoice</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">1</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Suteki</div>
+          <div class="step-title">Generate Rekapan Komisi Eligible</div>
+          <p class="step-desc">Suteki membuat rekapan dari semua komisi yang statusnya <strong>Approved tapi belum dibayar</strong>, dikelompokkan per kampus. Ini adalah daftar tagihan yang akan dikirim ke kampus.</p>
+          <div class="detail-row">
+            <span class="chip ch-blue">📋 Filter: Approved + belum dibayar</span>
+            <span class="chip ch-blue">🏫 Dikelompokkan per kampus</span>
+          </div>
+        </div>
       </div>
-      <div class="step-card suteki">
-        <div class="step-actor-tag tag-suteki">Admin Suteki</div>
-        <div class="step-title">Buka Halaman Konfigurasi</div>
-        <p class="step-desc">Admin Suteki masuk ke panel internal SIAKAD dan membuka halaman khusus pengaturan fitur Afiliasi PMB. Halaman ini <strong>hanya bisa diakses oleh tim Suteki</strong> (bukan oleh pihak kampus).</p>
-        <div class="detail-row">
-          <span class="chip chip-blue">🔒 Akses terbatas oleh Admin Suteki</span>
-          <span class="chip chip-gold">📍 Panel Internal SIAKAD</span>
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">2</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Suteki</div>
+          <div class="step-title">Kirim Invoice ke Kampus</div>
+          <p class="step-desc">Suteki mengirimkan invoice ke kampus berisi daftar afiliator, nominal komisi masing-masing, dan total yang harus dibayar termasuk <strong>biaya distribusi Suteki</strong>.</p>
+          <div class="detail-row">
+            <span class="chip ch-gold">📄 Isi invoice: daftar afiliator + nominal komisi + biaya distribusi</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FASE B -->
+    <div class="phase-header">
+      <span class="phase-tag pt-campus">Fase B</span>
+      <span class="phase-title">Verifikasi oleh Kampus</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-campus">3</div><div class="connector"></div></div>
+        <div class="step-card sc-campus">
+          <div class="step-actor-tag at-campus">Kampus</div>
+          <div class="step-title">Terima &amp; Review Invoice</div>
+          <p class="step-desc">Kampus menerima invoice dan mencocokkannya dengan catatan internal — memastikan nama afiliator dan nominal komisi sudah sesuai dengan data mereka.</p>
+          <div class="detail-row">
+            <span class="chip ch-green">👀 Cek daftar afiliator</span>
+            <span class="chip ch-green">💰 Cek nominal komisi per afiliator</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decision -->
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-decision">?</div><div class="connector"></div></div>
+        <div class="decision-card">
+          <div class="step-actor-tag" style="color:#dc2626;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px;">Kampus · Titik Keputusan</div>
+          <div class="step-title">Verifikasi: Rekapan Sesuai?</div>
+          <p class="step-desc" style="color:#444;">Kampus memutuskan apakah data di invoice sudah cocok dengan catatan internal mereka.</p>
+          <div class="decision-branches">
+            <div class="branch branch-yes">
+              <span class="branch-label">✅ Ya, Sesuai</span>
+              Lanjut ke pembayaran. Kampus transfer dana ke rekening penampung Suteki.
+            </div>
+            <div class="branch branch-no">
+              <span class="branch-label">❌ Tidak Sesuai</span>
+              Kampus mengajukan dispute ke Suteki untuk revisi rekap.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dispute (jalur alternatif) -->
+      <div class="step" style="margin-left: 24px;">
+        <div class="step-spine">
+          <div class="step-num" style="background:#f97316;color:#fff;width:30px;height:30px;font-size:13px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;">↩</div>
+          <div class="connector"></div>
+        </div>
+        <div class="step-card" style="border: 1px solid #fdba74; background:#fff7ed; margin:10px 0 0; border-radius:12px; padding:15px 20px 17px; box-shadow:0 2px 8px var(--shadow); position:relative; overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;width:4px;height:100%;border-radius:12px 0 0 12px;background:#f97316;"></div>
+          <div class="step-actor-tag" style="color:#c2410c;">Jalur Dispute — jika tidak sesuai</div>
+          <div class="step-title" style="font-size:15px;">Dispute &amp; Revisi Rekap</div>
+          <p class="step-desc">Kampus menghubungi Suteki untuk melaporkan ketidaksesuaian. Suteki merevisi rekapan dan mengirim ulang invoice yang sudah diperbaiki. <strong>Proses kembali ke langkah 3</strong> untuk dicek ulang sampai data cocok.</p>
+          <div class="dispute-box">
+            <span>🔄 Setelah revisi dikirim, kampus mengulang proses review dari awal.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FASE C -->
+    <div class="phase-header">
+      <span class="phase-tag pt-campus">Fase C</span>
+      <span class="phase-title">Pembayaran dari Kampus</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-campus">4</div><div class="connector"></div></div>
+        <div class="step-card sc-campus">
+          <div class="step-actor-tag at-campus">Kampus</div>
+          <div class="step-title">Transfer Dana ke Rekening Penampung Suteki</div>
+          <p class="step-desc">Setelah invoice disetujui, kampus mentransfer total dana — yaitu <strong>total komisi seluruh afiliator ditambah biaya distribusi</strong> — ke rekening penampung milik Suteki dalam satu kali transfer.</p>
+          <div class="sync-visual">
+            <div class="sync-box sb-campus">Rekening<br><small>Kampus</small></div>
+            <span class="sync-arrow">→</span>
+            <div class="sync-box sb-rek">Rek. Penampung<br><small>Suteki</small></div>
+          </div>
+          <div class="detail-row" style="margin-top:10px;">
+            <span class="chip ch-gold">💸 1 transfer = total komisi + biaya distribusi</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FASE D -->
+    <div class="phase-header">
+      <span class="phase-tag pt-rekening">Fase D</span>
+      <span class="phase-title">Konfirmasi &amp; Pemrosesan Dana</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-rekening">5</div><div class="connector"></div></div>
+        <div class="step-card sc-rekening">
+          <div class="step-actor-tag at-rekening">Rekening Penampung</div>
+          <div class="step-title">Dana Masuk ke Suteki</div>
+          <p class="step-desc">Rekening penampung Suteki menerima total dana dari kampus. Dana ini <strong>belum langsung diteruskan ke afiliator</strong> — menunggu konfirmasi dari tim Suteki terlebih dahulu.</p>
+          <div class="detail-row">
+            <span class="chip ch-rek">🏦 Dana masuk, menunggu konfirmasi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">6</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Suteki</div>
+          <div class="step-title">Konfirmasi Penerimaan Dana</div>
+          <p class="step-desc">Tim Suteki memverifikasi bahwa nominal yang diterima di rekening penampung <strong>cocok dengan angka di invoice</strong>. Jika cocok, proses dilanjutkan.</p>
+          <div class="valid-box">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#1b5e1f" stroke-width="1.2"/><path d="M5 8.5l2 2 4-4" stroke="#1b5e1f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Dana cocok dengan invoice → lanjut ke tahap distribusi.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">7</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Suteki</div>
+          <div class="step-title">Potong Bagian Suteki dari Total Dana</div>
+          <p class="step-desc">Dari total dana yang masuk, Suteki memotong dua jenis biaya sebelum meneruskan ke afiliator:</p>
+          <div class="calc-box">
+            <div class="calc-title">Ilustrasi Perhitungan (per afiliator)</div>
+            <div class="calc-row">
+              <span class="calc-label">Fee Bruto (diterima dari kampus)</span>
+              <span class="calc-val cv-plus">+ Rp X</span>
+            </div>
+            <div class="calc-row">
+              <span class="calc-label">Potongan Suteki (sesuai konfigurasi C-387)</span>
+              <span class="calc-val cv-minus">− Rp Y</span>
+            </div>
+            <div class="calc-row">
+              <span class="calc-label">Biaya distribusi (Rp 2.000–2.500 / transaksi)</span>
+              <span class="calc-val cv-minus">− Rp 2.000–2.500</span>
+            </div>
+            <div class="calc-row total">
+              <span class="calc-label">Komisi Bersih Afiliator</span>
+              <span class="calc-val cv-result">= Rp (X − Y − biaya)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">8</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Operator Suteki</div>
+          <div class="step-title">Update Status: Approved → Paid</div>
+          <p class="step-desc">Operator Suteki memperbarui status setiap record komisi di sistem dari <strong>Approved menjadi Paid</strong>. Ini menandakan komisi sudah diproses dan siap didistribusikan.</p>
+          <div class="detail-row">
+            <span class="chip ch-purple">🔄 Status: Approved → Paid</span>
+            <span class="chip ch-purple">📝 Record diperbarui di sistem</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FASE E -->
+    <div class="phase-header">
+      <span class="phase-tag pt-affiliator">Fase E</span>
+      <span class="phase-title">Pencairan ke Afiliator</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-suteki">9</div><div class="connector"></div></div>
+        <div class="step-card sc-suteki">
+          <div class="step-actor-tag at-suteki">Suteki</div>
+          <div class="step-title">Transfer Komisi Bersih ke Tiap Afiliator</div>
+          <p class="step-desc">Suteki mentransfer komisi bersih ke rekening bank masing-masing afiliator. Transfer dilakukan dari rekening penampung menggunakan <strong>platform disbursement</strong> (mis. Flip) untuk efisiensi pengiriman massal ke banyak afiliator sekaligus.</p>
+          <div class="sync-visual">
+            <div class="sync-box sb-rek">Rek. Penampung<br><small>Suteki</small></div>
+            <span class="sync-arrow">→</span>
+            <div class="sync-box" style="background:#e8f5e9;color:#1b5e1f;border:1px solid #81c784;font-size:12px;padding:8px 14px;border-radius:8px;font-weight:600;text-align:center;">Platform Disbursement<br><small>mis. Flip</small></div>
+            <span class="sync-arrow">→</span>
+            <div class="sync-box sb-aff">Rek. Bank<br><small>Afiliator</small></div>
+          </div>
+          <div class="detail-row" style="margin-top:10px;">
+            <span class="chip ch-blue">🚀 Transfer massal ke semua afiliator</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-affiliator">10</div><div class="connector"></div></div>
+        <div class="step-card sc-affiliator">
+          <div class="step-actor-tag at-affiliator">Afiliator</div>
+          <div class="step-title">Terima Komisi Bersih di Rekening</div>
+          <p class="step-desc">Dana komisi bersih masuk ke rekening bank afiliator. Jumlah yang diterima adalah <strong>fee bruto dikurangi potongan Suteki dan biaya distribusi</strong>.</p>
+          <div class="detail-row">
+            <span class="chip ch-aff">💳 Masuk ke rekening bank afiliator</span>
+            <span class="chip ch-aff">✅ Nominal = fee bruto − potongan − biaya distribusi</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SELESAI -->
+    <div class="phase-header">
+      <span class="phase-tag pt-done">Selesai</span>
+      <span class="phase-title">Status Final</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-spine"><div class="step-num sn-done">✓</div></div>
+        <div class="step-card sc-done">
+          <div class="step-actor-tag at-done">Sistem · Final</div>
+          <div class="step-title">Status Paid — Proses Distribusi Selesai</div>
+          <p class="step-desc">Seluruh alur distribusi komisi selesai. Sistem memperbarui saldo portal afiliator dan mengirimkan notifikasi bahwa komisi sudah cair.</p>
+          <div class="detail-row">
+            <span class="chip ch-teal">🏁 Status record: Paid</span>
+            <span class="chip ch-teal">🔔 Notifikasi dikirim ke afiliator</span>
+            <span class="chip ch-teal">📊 Saldo portal diperbarui</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Step 2 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num system">2</div>
-        <div class="connector"></div>
-      </div>
-      <div class="step-card system">
-        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
-        <div class="step-title">Sistem Membaca Daftar Prodi</div>
-        <p class="step-desc">Begitu halaman terbuka, sistem <strong>langsung mengambil data</strong> dari database SIAKAD, tanpa perlu klik tombol apa pun. Semua program studi aktif yang tercatat di SIAKAD kampus tersebut langsung ditampilkan.</p>
-        <div class="detail-row">
-          <span class="chip chip-purple">⚡ Otomatis saat halaman dibuka</span>
-          <span class="chip chip-purple">📋 Semua prodi yang terdata di sistem ditampilkan</span>
-        </div>
-      </div>
+  </div>
+
+  <div class="outcome-banner ob-teal">
+    <div class="outcome-icon">💸</div>
+    <div class="outcome-text">
+      <h3>Hasil Akhir</h3>
+      <p>Dana komisi berhasil terdistribusi ke setiap afiliator. Kampus cukup melakukan satu kali transfer; Suteki yang menangani pembagian ke masing-masing afiliator secara otomatis melalui platform disbursement.</p>
     </div>
-
   </div>
 
-  <!-- PHASE 2 -->
-  <div class="phase-header">
-    <span class="phase-tag phase-suteki">Fase 2</span>
-    <span class="phase-title">Cek & Isi Konfigurasi</span>
-    <div class="phase-line"></div>
-  </div>
-
-  <div class="steps-row">
-
-    <!-- Step 3 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num system">3</div>
-        <div class="connector"></div>
-      </div>
-      <div class="step-card system">
-        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
-        <div class="step-title">Cek Kelengkapan Konfigurasi</div>
-        <p class="step-desc">Sistem memeriksa apakah semua prodi sudah terisi. Jika ada yang belum, muncul <strong>banner peringatan</strong> yang menyebutkan jumlah prodi yang masih kosong.</p>
-        <div class="alert-box">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14.5 13H1.5L8 2Z" fill="#f5a623" stroke="#b34a00" stroke-width="1"/><path d="M8 6v3M8 11v.5" stroke="#b34a00" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span><strong>Contoh peringatan:</strong> "3 program studi belum dikonfigurasi. Harap lengkapi sebelum menyimpan."</span>
-        </div>
-      </div>
+  <div class="note-footer">
+    <div class="note-icon">💡</div>
+    <div class="note-content">
+      <h3>Ringkasan Peran Masing-masing Pihak</h3>
+      <p><strong>Suteki:</strong> Buat rekap, kirim invoice, verifikasi dana, potong biaya, distribusi ke afiliator. &nbsp;·&nbsp; <strong>Kampus:</strong> Review invoice dan transfer dana dalam satu kali bayar. &nbsp;·&nbsp; <strong>Afiliator:</strong> Cukup menunggu — komisi otomatis masuk ke rekening setelah kampus membayar.</p>
     </div>
-
-    <!-- Step 4 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num suteki">4</div>
-        <div class="connector"></div>
-      </div>
-      <div class="step-card suteki">
-        <div class="step-actor-tag tag-suteki">Admin Suteki</div>
-        <div class="step-title">Isi Konfigurasi per Prodi</div>
-        <p class="step-desc">Untuk setiap prodi, admin mengisi tiga informasi wajib:</p>
-        <div class="detail-row">
-          <span class="chip chip-gold">💰 Fee Bruto: komisi total untuk afiliator (Rp)</span>
-          <span class="chip chip-gold">⏱ Trigger Pencairan: kondisi penentuan dihitungnya komisi</span>
-          <span class="chip chip-gold">✂️ Potongan Suteki (read only) : biaya platform (% sesuai dengan kesepakatan)</span>
-        </div>
-        <div class="detail-row" style="margin-top:10px;">
-          <span class="chip chip-blue">Opsi trigger: Daftar · Lulus Seleksi · Daftar Ulang</span>
-        </div>
-      </div>
-    </div>
-
   </div>
-
-  <!-- PHASE 3 -->
-  <div class="phase-header">
-    <span class="phase-tag phase-suteki">Fase 3</span>
-    <span class="phase-title">Validasi & Simpan</span>
-    <div class="phase-line"></div>
-  </div>
-
-  <div class="steps-row">
-
-    <!-- Step 5 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num system">5</div>
-        <div class="connector"></div>
-      </div>
-      <div class="step-card system">
-        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
-        <div class="step-title">Validasi Input</div>
-        <p class="step-desc">Saat admin mencoba menyimpan, sistem memvalidasi setiap field. Jika ada yang tidak valid, <strong>pesan error muncul langsung di bawah field yang bermasalah</strong>. Admin harus memperbaiki dulu sebelum bisa lanjut.</p>
-        <div class="alert-box">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#b34a00" stroke-width="1.2"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#b34a00" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <span><strong>Contoh error:</strong> "Trigger belum dipilih"</span>
-        </div>
-        <div class="valid-box">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#1b5e1f" stroke-width="1.2"/><path d="M5 8.5l2 2 4-4" stroke="#1b5e1f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Jika semua valid, sistem mengizinkan proses penyimpanan dilanjutkan.</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Step 6 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num suteki">6</div>
-        <div class="connector"></div>
-      </div>
-      <div class="step-card suteki">
-        <div class="step-actor-tag tag-suteki">Admin Suteki</div>
-        <div class="step-title">Simpan Konfigurasi</div>
-        <p class="step-desc">Setelah semua terisi dan valid, admin klik <strong>Simpan</strong>. Konfigurasi untuk setiap prodi: fee bruto, trigger pencairan, dan potongan Suteki, tersimpan ke database SIAKAD.</p>
-        <div class="detail-row">
-          <span class="chip chip-blue">💾 Tersimpan per prodi di database SIAKAD</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- PHASE 4 -->
-  <div class="phase-header">
-    <span class="phase-tag phase-system">Fase 4</span>
-    <span class="phase-title">Sinkronisasi Otomatis</span>
-    <div class="phase-line"></div>
-  </div>
-
-  <div class="steps-row">
-
-    <!-- Step 7 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num system">7</div>
-        <div class="connector"></div>
-      </div>
-      <div class="step-card system">
-        <div class="step-actor-tag tag-system">Sistem Otomatis</div>
-        <div class="step-title">Sinkronisasi ke Portal PMB</div>
-        <p class="step-desc">Konfigurasi yang sudah tersimpan <strong>langsung terbaca oleh portal PMB kampus</strong>. Tidak perlu upload atau import manual. Prodi baru otomatis muncul; prodi yang dinonaktifkan di SIAKAD otomatis tersembunyi.</p>
-        <div class="sync-visual">
-          <div class="sync-box sync-siakad">SIAKAD<br><small>Konfigurasi tersimpan</small></div>
-          <span class="sync-arrow">→</span>
-          <div class="sync-box sync-pmb">Portal PMB<br><small>Afiliasi → Pengaturan Program</small></div>
-          <span class="sync-label">real-time, otomatis</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- PHASE 5 -->
-  <div class="phase-header">
-    <span class="phase-tag phase-campus">Fase 5</span>
-    <span class="phase-title">Siap Digunakan Kampus</span>
-    <div class="phase-line"></div>
-  </div>
-
-  <div class="steps-row">
-
-    <!-- Step 8 -->
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num campus">8</div>
-      </div>
-      <div class="step-card campus">
-        <div class="step-actor-tag tag-campus">Admin Kampus (PMB)</div>
-        <div class="step-title">Fitur Afiliasi Siap Dikelola</div>
-        <p class="step-desc">Admin PMB kampus sudah bisa membuka menu <strong>Afiliasi → Pengaturan Program</strong> dan mengelola program afiliasi sesuai konfigurasi yang sudah disiapkan Suteki. Sistem PMB juga sudah bisa melakukan pengecekan komisi afiliasi secara otomatis berdasarkan prodi dan trigger yang berlaku.</p>
-        <div class="detail-row">
-          <span class="chip chip-green">✅ Prodi aktif tersedia di daftar afiliasi</span>
-          <span class="chip chip-green">🔍 Lookup komisi berjalan otomatis</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
+  <div style="height:48px;"></div>
 </div>
 
-<!-- OUTCOME BANNER -->
-<div class="outcome-banner">
-  <div class="outcome-icon">🎯</div>
-  <div class="outcome-text">
-    <h3>Hasil Akhir</h3>
-    <p>Setelah proses ini selesai, kampus dapat langsung menggunakan fitur afiliasi PMB. Setiap afiliator yang mendaftarkan calon mahasiswa akan tercatat pendapatan komisi sesuai aturan yang telah dikonfigurasi dan dihitung otomatis oleh sistem tanpa perlu input manual dari kampus.</p>
-  </div>
-</div>
 
-<!-- NOTE -->
-<!--
-<div class="note-footer">
-  <div class="note-icon">📌</div>
-  <div class="note-content">
-    <h3>Catatan untuk Pihak Kampus</h3>
-    <p>Seluruh proses konfigurasi di atas dilakukan sepenuhnya oleh tim Suteki. Kampus tidak perlu melakukan apa pun selama proses ini berlangsung. Satu hal yang perlu dipastikan kampus: <strong>data program studi di SIAKAD sudah aktif dan benar</strong> sebelum proses ini dijalankan — karena sistem hanya membaca data prodi yang berstatus aktif.</p>
-  </div>
-</div>
--->
-  
-<div style="height:40px;"></div>
-
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
